@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <item
+        android:id="@+id/home"
+
+        android:icon="@drawable/ic_home" />
+    <item
+        android:id="@+id/search"
+
+        android:icon="@drawable/ic_search" />
+
+    <item
+        android:id="@+id/post"
+
+        android:icon="@drawable/ic_post" />
+    <item
+        android:id="@+id/love"
+
+        android:icon="@drawable/ic_love" />
+    <item
+        android:id="@+id/profile"
+
+        android:icon="@drawable/avatar" />
+
+</menu>

@@ -1,18 +1,554 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/layoutappbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@color/white">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_back" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_9sdp"
+                        android:text="Tasya Theressa"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/rb_reg"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_14sdp"
+                        android:text="Posts"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/rb_bold"
+                        android:textColor="@color/black"/>
+
+
+                </LinearLayout>
+
+
+
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_below="@+id/layoutappbar"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+
+
+                <RelativeLayout
+                    android:id="@+id/layoutcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp">
+
+                    <ImageView
+                        android:id="@+id/img_profile"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:src="@drawable/avatar" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_toRightOf="@+id/img_profile"
+                        android:fontFamily="@font/rb_bold"
+                        android:text="Tasya Theressa"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/ic_more" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+
+                    <ImageView
+                        android:id="@+id/img_post"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_300sdp"
+                        android:layout_marginLeft="@dimen/_3sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_3sdp"
+                        android:src="@drawable/content2" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottie_like"
+                        android:layout_width="@dimen/_200sdp"
+                        android:layout_height="@dimen/_200sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_50sdp"
+                        app:lottie_autoPlay="true"
+                        android:visibility="gone"
+                        app:lottie_rawRes="@raw/oveanimateion" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/layout_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/img_post"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp">
+
+                    <ImageButton
+                        android:id="@+id/btn_love"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:background="@drawable/ic_love" />
+
+                    <ImageButton
+                        android:id="@+id/btn_comment"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_toRightOf="@id/btn_love"
+                        android:background="@drawable/comment" />
+
+                    <ImageButton
+                        android:id="@+id/btnshare"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_toRightOf="@id/btn_comment"
+                        android:background="@drawable/share" />
+
+                    <ImageButton
+                        android:id="@+id/btnbookmark"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:background="@drawable/bookmark" />
+
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_below="@id/layout_comment">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/total_like"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_toRightOf="@+id/img_profile"
+                            android:fontFamily="@font/rb_bold"
+                            android:text="1124"
+                            android:textColor="@color/black"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_toRightOf="@+id/img_profile"
+                            android:fontFamily="@font/rb_bold"
+                            android:text="likes"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
+
+
+
+                    </LinearLayout>
+
+
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_toRightOf="@+id/img_profile"
+                                android:fontFamily="@font/rb_bold"
+                                android:text="Tasya Theressa"
+                                android:textColor="@color/black"
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:textSize="@dimen/_10sdp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_toRightOf="@+id/img_profile"
+                                android:fontFamily="@font/rb_reg"
+                                android:text="Be yourself; everyone 😊😍"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10sdp" />
+
+
+                        </TableRow>
+
+                    </TableLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="View all 8 comments"
+                        android:fontFamily="@font/rb_reg"
+                        android:textSize="@dimen/_9sdp"
+                        android:layout_marginTop="@dimen/_5sdp"/>
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_height="wrap_content">
+
+
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_toRightOf="@+id/img_profile"
+                                android:fontFamily="@font/rb_bold"
+                                android:text="Kepingilbert"
+                                android:textColor="@color/black"
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:textSize="@dimen/_10sdp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_toRightOf="@+id/img_profile"
+                                android:fontFamily="@font/rb_med"
+                                android:text="😁👍"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10sdp" />
+
+
+                        </TableRow>
+
+                    </TableLayout>
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_height="wrap_content">
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_toRightOf="@+id/img_profile"
+                                android:fontFamily="@font/rb_reg"
+                                android:text="Agustus 10, 2022"
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:textSize="@dimen/_9sdp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_toRightOf="@+id/img_profile"
+                                android:fontFamily="@font/rb_reg"
+                                android:text="View translation"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_9sdp" />
+
+
+                        </TableRow>
+
+                    </TableLayout>
+
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp">
+
+                    <ImageView
+                        android:id="@+id/img_profile2"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:src="@drawable/avatar" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rb_bold"
+                        android:text="Tasya Theressa"
+                        android:layout_toRightOf="@+id/img_profile2"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/ic_more" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/img_post2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_300sdp"
+                    android:layout_below="@id/layoutcontent"
+                    android:layout_marginLeft="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    android:src="@drawable/content1" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/img_post"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp">
+
+                    <ImageButton
+                        android:id="@+id/btn_love2"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:background="@drawable/ic_love" />
+
+                    <ImageButton
+                        android:id="@+id/btn_comment2"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_toRightOf="@id/btn_love2"
+                        android:background="@drawable/comment" />
+
+                    <ImageButton
+                        android:id="@+id/btnshare2"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_toRightOf="@id/btn_comment2"
+                        android:background="@drawable/share" />
+
+                    <ImageButton
+                        android:id="@+id/btnbookmark2"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:background="@drawable/bookmark" />
+
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_30sdp"
+                    android:layout_below="@id/layout_comment">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_toRightOf="@+id/img_profile"
+                            android:fontFamily="@font/rb_bold"
+                            android:text="1.124"
+                            android:textColor="@color/black"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_toRightOf="@+id/img_profile"
+                            android:fontFamily="@font/rb_bold"
+                            android:text="likes"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
+
+
+
+                    </LinearLayout>
+
+
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_toRightOf="@+id/img_profile"
+                                android:fontFamily="@font/rb_bold"
+                                android:text="Tasya Theressa"
+                                android:textColor="@color/black"
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:textSize="@dimen/_10sdp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_toRightOf="@+id/img_profile"
+                                android:fontFamily="@font/rb_reg"
+                                android:text="Hehe 😊😍"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10sdp" />
+
+
+                        </TableRow>
+
+                    </TableLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="View all 8 comments"
+                        android:fontFamily="@font/rb_reg"
+                        android:textSize="@dimen/_9sdp"
+                        android:layout_marginTop="@dimen/_5sdp"/>
+
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_height="wrap_content">
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_toRightOf="@+id/img_profile"
+                                android:fontFamily="@font/rb_reg"
+                                android:text="Agustus 10, 2022"
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:textSize="@dimen/_9sdp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_toRightOf="@+id/img_profile"
+                                android:fontFamily="@font/rb_reg"
+                                android:text="View translation"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_9sdp" />
+
+
+                        </TableRow>
+
+                    </TableLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
+
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/bottom_navigation"
+        android:layout_gravity="bottom"
+        app:itemRippleColor="@color/black"
+        app:itemIconTint="@color/black"
+        app:menu="@menu/menu_bottom_bar"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
