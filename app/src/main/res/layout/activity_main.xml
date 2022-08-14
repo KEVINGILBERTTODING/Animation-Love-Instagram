@@ -67,10 +67,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-
-
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/layoutcontent"
@@ -109,7 +106,6 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
 
 
                     <ImageView
@@ -152,6 +148,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="@dimen/_minus60sdp"
                         app:lottie_autoPlay="true"
+                        android:visibility="gone"
                         app:lottie_scale="@integer/material_motion_duration_long_1"
                         app:lottie_rawRes="@raw/hold_love" />
 
@@ -390,15 +387,57 @@
 
                 </RelativeLayout>
 
-                <ImageView
-                    android:id="@+id/img_post2"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_300sdp"
-                    android:layout_below="@id/layoutcontent"
-                    android:layout_marginLeft="@dimen/_3sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_3sdp"
-                    android:src="@drawable/content1" />
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_post2"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_300sdp"
+                        android:layout_marginLeft="@dimen/_3sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_3sdp"
+                        android:src="@drawable/content1" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottie_like2"
+                        android:layout_width="@dimen/_200sdp"
+                        android:layout_height="@dimen/_200sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_50sdp"
+                        app:lottie_autoPlay="true"
+                        android:visibility="gone"
+                        app:lottie_rawRes="@raw/oveanimateion" />
+
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottie_disslike2"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_100sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_90sdp"
+                        app:lottie_autoPlay="true"
+                        android:visibility="gone"
+                        app:lottie_rawRes="@raw/disslike2" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottie_hold2"
+                        android:layout_width="@dimen/_200sdp"
+                        android:layout_height="@dimen/_200sdp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/_minus60sdp"
+                        android:layout_marginTop="@dimen/_130sdp"
+                        app:lottie_autoPlay="true"
+                        android:visibility="gone"
+                        app:lottie_rawRes="@raw/hold_love"
+                        app:lottie_scale="@integer/material_motion_duration_long_1" />
+
+                </RelativeLayout>
+
+
+
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"

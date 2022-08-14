@@ -2,6 +2,7 @@ package com.example.likeInstagram;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.gesture.GestureStore;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.GestureDetector;
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
     ImageView post, post2;
     ImageButton btnLikes, btnLikes2;
-    LottieAnimationView animationView, disslike_animation;
+    LottieAnimationView animationView, disslike_animation, animationView2, disslike_animation2, lottieHold, lottieHold2;
     TextView totalLike, totalLike2;
 
     @Override
@@ -37,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         totalLike  = findViewById(R.id.total_like);
         disslike_animation = findViewById(R.id.lottie_disslike);
         totalLike2 = findViewById(R.id.total_like2);
+        animationView2 = findViewById(R.id.lottie_like2);
+        disslike_animation2 = findViewById(R.id.lottie_disslike2);
+        lottieHold2 = findViewById(R.id.lottie_hold2);
+        lottieHold = findViewById(R.id.lottie_hold);
 
         // hide navbar
 
@@ -115,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
             } else {
                 // shoow like animation
                 likeAnimation();
-
                 // change background button
                 btnLikes.setBackground(getResources().getDrawable(R.drawable.icon_liked));
                 totalLike.setText(String.valueOf(Integer.parseInt(totalLike.getText().toString()) + 1));
@@ -134,22 +138,22 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
 
                     //if buton like is clicked and background drwable is ic_love
-                    if (btnLikes.getBackground().getConstantState() == getResources().getDrawable(R.drawable.ic_love).getConstantState()){
-                        btnLikes.setBackgroundResource(R.drawable.icon_liked);
-                        totalLike.setText(String.valueOf(Integer.parseInt(totalLike2.getText().toString()) + 1));
+                    if (btnLikes2.getBackground().getConstantState() == getResources().getDrawable(R.drawable.ic_love).getConstantState()){
+                        btnLikes2.setBackgroundResource(R.drawable.icon_liked);
+                        totalLike2.setText(String.valueOf(Integer.parseInt(totalLike2.getText().toString()) + 1));
 
                         // show like animation
-                        likeAnimation();
+                        likeAnimation2();
 
                         Snackbar.make(findViewById(android.R.id.content), "You liked this post", Snackbar.LENGTH_SHORT).show();
 
                     }
                     else {
-                        btnLikes.setBackgroundResource(R.drawable.ic_love);
-                        totalLike.setText(String.valueOf(Integer.parseInt(totalLike2.getText().toString()) - 1));
+                        btnLikes2.setBackgroundResource(R.drawable.ic_love);
+                        totalLike2.setText(String.valueOf(Integer.parseInt(totalLike2.getText().toString()) - 1));
 
                         // sow disslike animation
-                        disslikeAnimation();
+                        disslikeAnimation2();
 
                         Snackbar.make(findViewById(android.R.id.content), "You disliked this post", Snackbar.LENGTH_SHORT).show();
 
@@ -161,6 +165,13 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
                 @Override
                 public boolean onDown(MotionEvent e) {
                     return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    lottieHold2.setVisibility(View.VISIBLE);
+                    Snackbar.make(findViewById(android.R.id.content), "Hold to save", Snackbar.LENGTH_SHORT).show();
+                    super.onLongPress(e);
                 }
             });
 
@@ -174,11 +185,49 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
             }
         });
 
+        // implement hold tap to show sprinkle love effect
+
+
+        btnLikes2.setOnTouchListener(new View.OnTouchListener() {
+
+            GestureDetector gestureDetector = new GestureDetector(MainActivity.this, new GestureDetector.SimpleOnGestureListener() {
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+
+                    if (btnLikes2.getBackground().getConstantState() == getResources().getDrawable(R.drawable.icon_liked).getConstantState()) {
+                        // show disslike animation
+                        lottieHold2.setVisibility(View.VISIBLE);
+                        totalLike2.setText(String.valueOf(Integer.parseInt(totalLike2.getText().toString()) - 1));
+                        btnLikes2.setBackground(getResources().getDrawable(R.drawable.ic_love));
+                        Snackbar.make(findViewById(android.R.id.content), "You unliked this post", Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        // shoow like animation
+                        lottieHold2.setVisibility(View.VISIBLE);
+                        // change background button
+                        btnLikes2.setBackground(getResources().getDrawable(R.drawable.icon_liked));
+                        totalLike2.setText(String.valueOf(Integer.parseInt(totalLike2.getText().toString()) + 1));
+                        Snackbar.make(findViewById(android.R.id.content), "liked", Snackbar.LENGTH_SHORT).show();
+                    }
+
+
+                    Snackbar.make(findViewById(android.R.id.content), "Hold to save", Snackbar.LENGTH_SHORT).show();
+                    super.onLongPress(e);
+                }
+            });
+
+                @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                gestureDetector.onTouchEvent(motionEvent);
+                return true;
+            }
+        });
+
         // implement click to like and disslike post 2
         btnLikes2.setOnClickListener(view -> {
             if (btnLikes2.getBackground().getConstantState() == getResources().getDrawable(R.drawable.icon_liked).getConstantState()) {
                 // show disslike animation
-                disslikeAnimation();
+                disslikeAnimation2();
                 totalLike.setText(String.valueOf(Integer.parseInt(totalLike2.getText().toString()) - 1));
                 btnLikes2.setBackground(getResources().getDrawable(R.drawable.ic_love));
                 Snackbar.make(view, "You unliked this post", Snackbar.LENGTH_SHORT).show();
@@ -186,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
             } else {
                 // show like animation
-                likeAnimation();
+                likeAnimation2();
 
                 // change background button
                 btnLikes2.setBackground(getResources().getDrawable(R.drawable.icon_liked));
@@ -233,6 +282,30 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
             public void run() {
                 disslike_animation.cancelAnimation();
                 disslike_animation.setVisibility(View.GONE);
+            }
+        }, 1500);
+    }  // show like animation
+    private  void likeAnimation2(){
+        animationView2.setVisibility(View.VISIBLE);
+        animationView2.playAnimation();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                animationView2.setVisibility(View.GONE);
+                animationView2.cancelAnimation();
+            }
+        }, 1000);
+    }
+
+    // show disslike animation
+    private void disslikeAnimation2() {
+        disslike_animation2.setVisibility(View.VISIBLE);
+        disslike_animation2.playAnimation();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                disslike_animation2.cancelAnimation();
+                disslike_animation2.setVisibility(View.GONE);
             }
         }, 1500);
     }
