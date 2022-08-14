@@ -121,6 +121,8 @@
                         android:layout_marginRight="@dimen/_3sdp"
                         android:src="@drawable/content2" />
 
+
+
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/lottie_like"
                         android:layout_width="@dimen/_200sdp"
@@ -130,6 +132,28 @@
                         app:lottie_autoPlay="true"
                         android:visibility="gone"
                         app:lottie_rawRes="@raw/oveanimateion" />
+
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottie_disslike"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_100sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_90sdp"
+                        app:lottie_autoPlay="true"
+                        android:visibility="gone"
+                        app:lottie_rawRes="@raw/disslike2" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottie_hold"
+                        android:layout_width="@dimen/_200sdp"
+                        android:layout_height="@dimen/_200sdp"
+                        android:layout_marginTop="@dimen/_130sdp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/_minus60sdp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_scale="@integer/material_motion_duration_long_1"
+                        app:lottie_rawRes="@raw/hold_love" />
 
                 </RelativeLayout>
 
@@ -141,6 +165,10 @@
                     android:layout_below="@id/img_post"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp">
+
+
+
+
 
                     <ImageButton
                         android:id="@+id/btn_love"
@@ -427,12 +455,13 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
+                            android:id="@+id/total_like2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_toRightOf="@+id/img_profile"
                             android:fontFamily="@font/rb_bold"
-                            android:text="1.124"
+                            android:text="2070"
                             android:textColor="@color/black"
                             android:layout_marginRight="@dimen/_5sdp"
                             android:textSize="@dimen/_10sdp" />

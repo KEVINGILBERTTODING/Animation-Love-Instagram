@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
     ImageView post, post2;
     ImageButton btnLikes, btnLikes2;
-    LottieAnimationView animationView;
-    TextView totalLike;
+    LottieAnimationView animationView, disslike_animation;
+    TextView totalLike, totalLike2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         post2 = findViewById(R.id.img_post2);
         animationView= findViewById(R.id.lottie_like);
         totalLike  = findViewById(R.id.total_like);
-        String total = totalLike.getText().toString();
+        disslike_animation = findViewById(R.id.lottie_disslike);
+        totalLike2 = findViewById(R.id.total_like2);
 
         // hide navbar
 
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
 
-        // implements double tap
+        // implements double tap to like and disslike post 1
 
         post.setOnTouchListener(new View.OnTouchListener() {
 
@@ -56,11 +57,28 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
                 @Override
                 public boolean onDoubleTap(MotionEvent e) {
-                    animateLike();
 
+
+                    //if buton like is clicked and background drwable is ic_love
                     if (btnLikes.getBackground().getConstantState() == getResources().getDrawable(R.drawable.ic_love).getConstantState()){
                         btnLikes.setBackgroundResource(R.drawable.icon_liked);
                         totalLike.setText(String.valueOf(Integer.parseInt(totalLike.getText().toString()) + 1));
+
+                        // show like animation
+                        likeAnimation();
+
+                        Snackbar.make(findViewById(android.R.id.content), "You liked this post", Snackbar.LENGTH_SHORT).show();
+
+                    }
+                    else {
+                        btnLikes.setBackgroundResource(R.drawable.ic_love);
+                        totalLike.setText(String.valueOf(Integer.parseInt(totalLike.getText().toString()) - 1));
+
+                        // sow disslike animation
+                        disslikeAnimation();
+
+                        Snackbar.make(findViewById(android.R.id.content), "You disliked this post", Snackbar.LENGTH_SHORT).show();
+
                     }
 
                     return super.onDoubleTap(e);
@@ -82,17 +100,97 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
             }
         });
 
+
+
+        // implements double tap to like and disslike post 1
         btnLikes.setOnClickListener(view -> {
             if (btnLikes.getBackground().getConstantState() == getResources().getDrawable(R.drawable.icon_liked).getConstantState()) {
+                // show disslike animation
+                disslikeAnimation();
                 totalLike.setText(String.valueOf(Integer.parseInt(totalLike.getText().toString()) - 1));
                 btnLikes.setBackground(getResources().getDrawable(R.drawable.ic_love));
                 Snackbar.make(view, "You unliked this post", Snackbar.LENGTH_SHORT).show();
 
 
             } else {
-                animateLike();
+                // shoow like animation
+                likeAnimation();
+
+                // change background button
                 btnLikes.setBackground(getResources().getDrawable(R.drawable.icon_liked));
                 totalLike.setText(String.valueOf(Integer.parseInt(totalLike.getText().toString()) + 1));
+                Snackbar.make(view, "liked", Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        // implements double tap to like and disslike post 2
+
+        post2.setOnTouchListener(new View.OnTouchListener() {
+
+            GestureDetector gestureDetector = new GestureDetector(MainActivity.this, new GestureDetector.SimpleOnGestureListener(){
+
+                @Override
+                public boolean onDoubleTap(MotionEvent e) {
+
+
+                    //if buton like is clicked and background drwable is ic_love
+                    if (btnLikes.getBackground().getConstantState() == getResources().getDrawable(R.drawable.ic_love).getConstantState()){
+                        btnLikes.setBackgroundResource(R.drawable.icon_liked);
+                        totalLike.setText(String.valueOf(Integer.parseInt(totalLike2.getText().toString()) + 1));
+
+                        // show like animation
+                        likeAnimation();
+
+                        Snackbar.make(findViewById(android.R.id.content), "You liked this post", Snackbar.LENGTH_SHORT).show();
+
+                    }
+                    else {
+                        btnLikes.setBackgroundResource(R.drawable.ic_love);
+                        totalLike.setText(String.valueOf(Integer.parseInt(totalLike2.getText().toString()) - 1));
+
+                        // sow disslike animation
+                        disslikeAnimation();
+
+                        Snackbar.make(findViewById(android.R.id.content), "You disliked this post", Snackbar.LENGTH_SHORT).show();
+
+                    }
+
+                    return super.onDoubleTap(e);
+                }
+
+                @Override
+                public boolean onDown(MotionEvent e) {
+                    return true;
+                }
+            });
+
+
+
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                gestureDetector.onTouchEvent(motionEvent);
+                return  true;
+            }
+        });
+
+        // implement click to like and disslike post 2
+        btnLikes2.setOnClickListener(view -> {
+            if (btnLikes2.getBackground().getConstantState() == getResources().getDrawable(R.drawable.icon_liked).getConstantState()) {
+                // show disslike animation
+                disslikeAnimation();
+                totalLike.setText(String.valueOf(Integer.parseInt(totalLike2.getText().toString()) - 1));
+                btnLikes2.setBackground(getResources().getDrawable(R.drawable.ic_love));
+                Snackbar.make(view, "You unliked this post", Snackbar.LENGTH_SHORT).show();
+
+
+            } else {
+                // show like animation
+                likeAnimation();
+
+                // change background button
+                btnLikes2.setBackground(getResources().getDrawable(R.drawable.icon_liked));
+                totalLike2.setText(String.valueOf(Integer.parseInt(totalLike2.getText().toString()) + 1));
                 Snackbar.make(view, "liked", Snackbar.LENGTH_SHORT).show();
             }
         });
@@ -112,14 +210,11 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
 
     }
-    private  void animateLike(){
-        if (animationView.isAnimating()) {
-            animationView.cancelAnimation();
-        } else {
-            animationView.playAnimation();
-        }
 
+    // show like animation
+    private  void likeAnimation(){
         animationView.setVisibility(View.VISIBLE);
+        animationView.playAnimation();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -127,6 +222,19 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
                 animationView.cancelAnimation();
             }
         }, 1000);
+    }
+
+    // show disslike animation
+    private void disslikeAnimation() {
+        disslike_animation.setVisibility(View.VISIBLE);
+        disslike_animation.playAnimation();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                disslike_animation.cancelAnimation();
+                disslike_animation.setVisibility(View.GONE);
+            }
+        }, 1500);
     }
 
 
