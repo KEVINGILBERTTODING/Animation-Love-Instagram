@@ -9,6 +9,8 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,10 +22,12 @@ import com.google.android.material.snackbar.Snackbar;
 public class MainActivity extends AppCompatActivity implements GestureDetector.OnDoubleTapListener, View.OnClickListener{
 
 
-    ImageView post, post2;
+    ImageView post, post2, ivLove;
     ImageButton btnLikes, btnLikes2;
+    private Boolean isAnimate = false;
     LottieAnimationView animationView, disslike_animation, animationView2, disslike_animation2, lottieHold, lottieHold2;
     TextView totalLike, totalLike2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         post2 = findViewById(R.id.img_post2);
         animationView= findViewById(R.id.lottie_like);
         totalLike  = findViewById(R.id.total_like);
+        ivLove = findViewById(R.id.ivLove);
         disslike_animation = findViewById(R.id.lottie_disslike);
         totalLike2 = findViewById(R.id.total_like2);
         animationView2 = findViewById(R.id.lottie_like2);
@@ -64,13 +69,15 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
                 public boolean onDoubleTap(MotionEvent e) {
 
 
+
                     //if buton like is clicked and background drwable is ic_love
                     if (btnLikes.getBackground().getConstantState() == getResources().getDrawable(R.drawable.ic_love).getConstantState()){
                         btnLikes.setBackgroundResource(R.drawable.icon_liked);
                         totalLike.setText(String.valueOf(Integer.parseInt(totalLike.getText().toString()) + 1));
 
                         // show like animation
-                        likeAnimation();
+//                        likeAnimation();
+                        loveAnimate();
 
                         Snackbar.make(findViewById(android.R.id.content), "You liked this post", Snackbar.LENGTH_SHORT).show();
 
@@ -78,9 +85,10 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
                     else {
                         btnLikes.setBackgroundResource(R.drawable.ic_love);
                         totalLike.setText(String.valueOf(Integer.parseInt(totalLike.getText().toString()) - 1));
+                        isAnimate = false;
 
                         // sow disslike animation
-                        disslikeAnimation();
+//                        disslikeAnimation();
 
                         Snackbar.make(findViewById(android.R.id.content), "You disliked this post", Snackbar.LENGTH_SHORT).show();
 
@@ -136,28 +144,75 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
                 @Override
                 public boolean onDoubleTap(MotionEvent e) {
 
+                            if (!isAnimate) {
+                                // Load the rotation animation
+                                Animation rotateAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate_animation);
 
-                    //if buton like is clicked and background drwable is ic_love
-                    if (btnLikes2.getBackground().getConstantState() == getResources().getDrawable(R.drawable.ic_love).getConstantState()){
-                        btnLikes2.setBackgroundResource(R.drawable.icon_liked);
-                        totalLike2.setText(String.valueOf(Integer.parseInt(totalLike2.getText().toString()) + 1));
+                                // Load the slide up animation
+                                Animation slideUpAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.slide_up_animation);
 
-                        // show like animation
-                        likeAnimation2();
+                                // Set animation listener for rotation
+                                rotateAnimation.setAnimationListener(new Animation.AnimationListener() {
+                                    @Override
+                                    public void onAnimationStart(Animation animation) {
+                                    }
 
-                        Snackbar.make(findViewById(android.R.id.content), "You liked this post", Snackbar.LENGTH_SHORT).show();
+                                    @Override
+                                    public void onAnimationEnd(Animation animation) {
+                                        // Start slide up animation
+                                        ivLove.startAnimation(slideUpAnimation);
+                                    }
 
-                    }
-                    else {
-                        btnLikes2.setBackgroundResource(R.drawable.ic_love);
-                        totalLike2.setText(String.valueOf(Integer.parseInt(totalLike2.getText().toString()) - 1));
+                                    @Override
+                                    public void onAnimationRepeat(Animation animation) {
+                                    }
+                                });
 
-                        // sow disslike animation
-                        disslikeAnimation2();
+                                // Set animation listener for slide up
+                                slideUpAnimation.setAnimationListener(new Animation.AnimationListener() {
+                                    @Override
+                                    public void onAnimationStart(Animation animation) {
+                                    }
 
-                        Snackbar.make(findViewById(android.R.id.content), "You disliked this post", Snackbar.LENGTH_SHORT).show();
+                                    @Override
+                                    public void onAnimationEnd(Animation animation) {
+                                        // Hide the image view
+                                        ivLove.setVisibility(View.GONE);
+                                    }
 
-                    }
+                                    @Override
+                                    public void onAnimationRepeat(Animation animation) {
+                                    }
+                                });
+
+                                // Start the rotation animation
+                                ivLove.startAnimation(rotateAnimation);
+                                isAnimate = true;
+                            }
+
+
+
+//                    //if buton like is clicked and background drwable is ic_love
+//                    if (btnLikes2.getBackground().getConstantState() == getResources().getDrawable(R.drawable.ic_love).getConstantState()){
+//                        btnLikes2.setBackgroundResource(R.drawable.icon_liked);
+//                        totalLike2.setText(String.valueOf(Integer.parseInt(totalLike2.getText().toString()) + 1));
+//
+//                        // show like animation
+//                        likeAnimation2();
+//
+//                        Snackbar.make(findViewById(android.R.id.content), "You liked this post", Snackbar.LENGTH_SHORT).show();
+//
+//                    }
+//                    else {
+//                        btnLikes2.setBackgroundResource(R.drawable.ic_love);
+//                        totalLike2.setText(String.valueOf(Integer.parseInt(totalLike2.getText().toString()) - 1));
+//
+//                        // sow disslike animation
+//                        disslikeAnimation2();
+//
+//                        Snackbar.make(findViewById(android.R.id.content), "You disliked this post", Snackbar.LENGTH_SHORT).show();
+//
+//                    }
 
                     return super.onDoubleTap(e);
                 }
@@ -325,4 +380,74 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     public boolean onDoubleTapEvent(MotionEvent motionEvent) {
         return false;
     }
+
+    private void loveAnimate() {
+        if (!isAnimate) {
+            ivLove.setVisibility(View.VISIBLE);
+            // Load the rotation animation
+            Animation rotateAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate_animation);
+
+            // Load the slide up animation
+            Animation slideUpAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.slide_up_animation);
+            Animation zoomAnim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.zoom_animate);
+
+            zoomAnim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    ivLove.startAnimation(rotateAnimation);
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+            // Set animation listener for rotation
+            rotateAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    // Start slide up animation
+                    ivLove.startAnimation(slideUpAnimation);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+
+            // Set animation listener for slide up
+            slideUpAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    // Hide the image view
+                    ivLove.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+
+            // Start the animation
+            ivLove.startAnimation(zoomAnim);
+            isAnimate = true;
+        }
+    }
+
+
 }
